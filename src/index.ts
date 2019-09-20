@@ -117,14 +117,30 @@ export class Scene extends Phaser.Scene
     }
 
 
+    iterations = 0;
     update()
     {
         let keys = this.keys;
         let me = this.getPlayerSprite();
-        me.x += keys.right.isDown ? 1 : 0;
-        me.x -= keys.left.isDown ? 1 : 0;
-        me.y -= keys.up.isDown ? 1 : 0;
-        me.y += keys.down.isDown ? 1 : 0;
+        if (me != null)
+        {
+            let lastX = me.x;
+            let lastY = me.y;
+            me.x += keys.right.isDown ? 1 : 0;
+            me.x -= keys.left.isDown ? 1 : 0;
+            me.y -= keys.up.isDown ? 1 : 0;
+            me.y += keys.down.isDown ? 1 : 0;
+
+           // if (this.iterations % this.net.updateFrequency)
+            {
+                if (me.x != lastX || me.y != lastY)
+                {
+                    this.net.pushMsg({setThing:{id:me.name, x:me.x, y:me.y}});
+                }
+            }
+        }
+
+        this.iterations++;
     }
 }
 

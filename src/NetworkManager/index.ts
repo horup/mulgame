@@ -11,6 +11,7 @@ export class NetworkManager
 {
     state = new GameState();
     emitter = new EventEmitter();
+    updateFrequency = 2;
     on(event:'msg', f:(msg:Msg)=>any)
     {
         this.emitter.addListener(event, f);
@@ -32,5 +33,7 @@ export class NetworkManager
             let t = msg.setThing;
             s.things[t.id] = t;
         }
+
+        console.log(msg);
     }
 }
