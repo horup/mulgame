@@ -32,9 +32,22 @@ export class Scene extends Phaser.Scene
     overlay:Phaser.GameObjects.Graphics;
     grayness:Phaser.GameObjects.Rectangle;
 
+
+    keys =
+    {
+        left:null as Phaser.Input.Keyboard.Key,
+        right:null as Phaser.Input.Keyboard.Key,
+        up:null as Phaser.Input.Keyboard.Key,
+        down:null as Phaser.Input.Keyboard.Key
+    }
     
     create()
     {
+        this.keys.left = this.input.keyboard.addKey('a');
+        this.keys.right = this.input.keyboard.addKey('d');
+        this.keys.up = this.input.keyboard.addKey('w');
+        this.keys.down = this.input.keyboard.addKey('s');
+
         this.net = new NetworkManager();
         this.game.canvas.oncontextmenu = (e)=>e.preventDefault();
         this.tilemap = this.make.tilemap({tileHeight:16, tileWidth:16, width:256, height:256});
@@ -57,6 +70,8 @@ export class Scene extends Phaser.Scene
                 this.currentPlayer = 0;
             else if (e.key == "2")
                 this.currentPlayer = 1;
+
+            console.log(e.keyCode);
         });
 
         this.net.on('msg', (msg)=>this.onMsg(msg));
@@ -94,10 +109,22 @@ export class Scene extends Phaser.Scene
         }
     }
 
+    playerId:number = 0;
+    getPlayerSprite()
+    {
+        let sprite = this.children.getByName("0");
+        return sprite as Phaser.GameObjects.Sprite;
+    }
+
 
     update()
     {
-        
+        let keys = this.keys;
+        let me = this.getPlayerSprite();
+        me.x += keys.right.isDown ? 1 : 0;
+        me.x -= keys.left.isDown ? 1 : 0;
+        me.y -= keys.up.isDown ? 1 : 0;
+        me.y += keys.down.isDown ? 1 : 0;
     }
 }
 
