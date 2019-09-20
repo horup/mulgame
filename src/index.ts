@@ -62,9 +62,8 @@ export class Scene extends Phaser.Scene
         this.net.on('msg', (msg)=>this.onMsg(msg));
 
         this.net.pushMsg({setSize:{size:32}});
-        this.net.pushMsg({setThing:{id:0, x:32, y:32}});
-
-        this.net.pushMsg({setThing:{id:0, x:64, y:64}});
+        this.net.pushMsg({setThing:{id:'0', x:32, y:32}});
+        this.net.pushMsg({setThing:{id:'0', x:64, y:64}});
     }
 
     onMsg(msg:Msg)
