@@ -1,0 +1,25 @@
+{
+  "name": "mullgame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel ./src/index.html",
+	"build": "parcel build ./src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horup/mulgame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bresenham": "0.0.4",
+    "parcel-bundler": "^1.12.3",
+    "phaser": "^3.19.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.3"
+  }
+}
